@@ -1,0 +1,33 @@
+<project name="doomfire" default="all" basedir=".">
+
+	<property name="src" value="${basedir}/src/main/java" />
+	<property name="resources" value="${basedir}/src/main/resources" />
+	<property name="target" location="${basedir}/target" />
+	<property name="classes" location="${target}/classes" />
+
+	<target name="clean">
+		<delete quiet="true" dir="${target}" />
+	</target>
+
+	<target name="init">
+		<mkdir dir="${target}" />
+	</target>
+
+	<target name="compile" depends="init">
+		<mkdir dir="${classes}" />
+		<javac srcdir="${src}" destdir="${classes}" includeantruntime="false" debug="true" debuglevel="lines,vars,source"/>
+	</target>
+
+	<target name="jar" depends="compile">
+		<jar destfile="${target}/doomfire.jar">
+			<fileset dir="${classes}" />
+			<fileset dir="${resources}" />
+			<manifest>
+				<attribute name="Main-Class" value="com.chrisnewland.javafx.doomfire.DoomFire" />
+			</manifest>
+		</jar>
+	</target>
+
+	<target name="all" depends="jar" />
+
+</project>
